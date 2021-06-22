@@ -8,18 +8,12 @@ import NewEntry from './components/Pages/NewEntry/NewEntry';
 import UpdateEntry from './components/Pages/UpdateEntry/UpdateEntry';
 import Step2Screen from './components/Pages/step2Screen/Step2Screen';
 import step3Screen from './components/Pages/step3Screen/step3Screen';
-
-import * as firebase from 'firebase';
 import UploadImages from './components/Pages/UploadImages/UploadImages';
 import FinalScreen from './components/Pages/FinalScreen/FinalScreen';
-import {firebaseConfig} from './variables'
 
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-react-native';
 
-
-
-firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 

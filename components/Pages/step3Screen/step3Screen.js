@@ -16,6 +16,16 @@ const step3Screen = ({ route, navigation }) => {
   const [postal_code, setpostalcode] = useState('');
   const [loading, setloading] = useState(true);
 
+    const {
+      Firstname,
+      Lastname,
+      Age,
+      Phone_number,
+      Adhaar_number,
+      Longitude,
+      Latitude,
+    } = route.params;
+
   useEffect(() => {
     (async () => {
       try {
@@ -23,7 +33,7 @@ const step3Screen = ({ route, navigation }) => {
         const options = {
           method: 'GET',
           url: 'https://trueway-geocoding.p.rapidapi.com/ReverseGeocode',
-          params: { location: '27.7081, 77.9367', language: 'en' },
+          params: { location: `${Latitude}, ${Longitude}`, language: 'en' },
           headers: {
             'x-rapidapi-key': variables.rapidapikey,
             'x-rapidapi-host': variables.rapidapihost,
@@ -35,7 +45,6 @@ const step3Screen = ({ route, navigation }) => {
             console.log(response.data);
             const adressData = response.data;
             const userdata = adressData.results[0];
-            console.log(userdata);
             const district = userdata.area;
             const postal_code = userdata.postal_code;
             const state = userdata.region;
@@ -43,9 +52,6 @@ const step3Screen = ({ route, navigation }) => {
             setpostalcode(postal_code);
             setstate(state);
             setloading(false);
-
-            console.log(district);
-            console.log(state);
           })
           .catch(function (error) {
             console.error(error);
@@ -58,18 +64,8 @@ const step3Screen = ({ route, navigation }) => {
     })();
   }, []);
 
-  const {
-    Firstname,
-    Lastname,
-    Age,
-    Phone_number,
-    Adhaar_number,
-    Longitude,
-    Latitude,
-  } = route.params;
 
   const nextButtonhandler = () => {
-    setloading(true);
     const data = {
       Firstname: Firstname,
       Lastname: Lastname,
@@ -82,14 +78,7 @@ const step3Screen = ({ route, navigation }) => {
       State: state,
       Postal_code: postal_code,
     };
-    firebase
-      .database()
-      .ref(`users/${Adhaar_number}`)
-      .set(data)
-      .then(() => {
-        setloading(false);
-        navigation.navigate('Image Upload', data);
-      });
+    navigation.navigate('Image Upload', data);
   };
 
   return (
@@ -145,7 +134,7 @@ const step3Screen = ({ route, navigation }) => {
           </View>
         </View>
       )}
-      <AppButton ButtonText="Submit" onpress={nextButtonhandler} />
+      <AppButton ButtonText="Next" onpress={nextButtonhandler} />
     </View>
   );
 };

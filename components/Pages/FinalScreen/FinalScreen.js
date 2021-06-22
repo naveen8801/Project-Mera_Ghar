@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,52 +10,90 @@ import {
 } from 'react-native';
 import AppButton from './../../AppButton/AppButton';
 import greenTick from './../../../assets/Green-Tick-PNG-Pic.png';
-import * as SMS from 'expo-sms';
-import * as Random from 'expo-random';
+import { submitrequest } from './../../../api';
 
 const FinalScreen = ({ route, navigation }) => {
-  const { Firstname, Lastname, Age, Phone_number, Adhaar_number, Stage } =
-    route.params;
+  const [submitted, setsubmitted] = useState(false);
+  const {
+    Firstname,
+    Lastname,
+    Phone_number,
+    Adhaar_number,
+    Longitude,
+    Latitude,
+    District,
+    State,
+    Postal_code,
+    Stage,
+    photo,
+  } = route.params;
 
-  const sendsms = async () => {
-    const isAvailable = await SMS.isAvailableAsync();
-    const application_id = await Random.getRandomBytesAsync(12);
-    if (isAvailable) {
-      const { result } = await SMS.sendSMSAsync(
-        [Phone_number],
-        `Thanks ${Firstname} for applying for PMAY. Your application has been sumbitted successfully. Use ${application_id} as your application id to login to dashboard
-        and see your status`,
-        {
-          // attachments: {
-          //   uri: 'path/myfile.png',
-          //   mimeType: 'image/png',
-          //   filename: 'myfile.png',
-          // },
-        }
-      );
-      console.log('Message sent ' + result);
+  const SubmitHandler = async () => {
+    setsubmitted(false);
+    const data = {
+      firstname: Firstname,
+      lastname: Lastname,
+      adhaar_no: Adhaar_number,
+      phone_number: Phone_number,
+      long: Longitude,
+      lat: Latitude,
+      pincode: Postal_code,
+      district: District,
+      state: State,
+      stage_predicted: Stage,
+      photos: photo,
+    };
+    try {
+      fetch('http://ecdbe7d7baaa.ngrok.io/submit-request', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.status === 200) {
+            setsubmitted(true);
+          }
+          if (json.status === 400) {
+            if (json.key) {
+              Alert.alert(`${json.key[0]} is already registered`);
+            }
+          }
+          console.log(json);
+        });
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  useEffect(() => {
-    sendsms();
-  }, []);
   const nextButtonhandler = () => {
     navigation.navigate('Home');
   };
   return (
     <View style={styles.finalscreen_view}>
-      <Text>{Stage}</Text>
       <View style={styles.conainer}>
-        <Text style={styles.text}>
-          You have successfully submitted the data
-        </Text>
-        <Image
-          source={greenTick}
-          style={{ marginTop: 36, width: 205, height: 159 }}
-        />
+        {submitted ? (
+          <Text style={styles.text}>
+            You have successfully submitted the data
+          </Text>
+        ) : (
+          <Text style={styles.text}>Click below to submit your data</Text>
+        )}
+        {submitted ? (
+          <Image
+            source={greenTick}
+            style={{ marginTop: 36, width: 205, height: 159 }}
+          />
+        ) : null}
       </View>
-      <AppButton ButtonText="Submit" onpress={nextButtonhandler} />
+      {submitted ? (
+        <AppButton ButtonText="Done" onpress={nextButtonhandler} />
+      ) : (
+        <AppButton ButtonText="Submit" onpress={SubmitHandler} />
+      )}
     </View>
   );
 };

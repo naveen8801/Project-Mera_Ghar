@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AppButton from '../../AppButton/AppButton';
 import { Overlay } from 'react-native-elements';
-import * as firebase from 'firebase';
 import { Alert } from 'react-native';
 import * as tf from '@tensorflow/tfjs';
 import * as FileSystem from 'expo-file-system';
@@ -125,7 +124,6 @@ const UploadImages = ({ route, navigation }) => {
       const manipResult = await ImageManipulator.manipulateAsync(uri_main, [
         { resize: { width: 150, height: 150 } },
       ]);
-      console.log(manipResult);
       setImage3(manipResult.uri);
     }
     try {
@@ -148,7 +146,6 @@ const UploadImages = ({ route, navigation }) => {
       const manipResult = await ImageManipulator.manipulateAsync(uri_main, [
         { resize: { width: 150, height: 150 } },
       ]);
-      console.log(manipResult);
       setImage4(manipResult.uri);
     }
     try {
@@ -157,24 +154,23 @@ const UploadImages = ({ route, navigation }) => {
   };
 
   const uploadImage = async (uri, name) => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    });
-
-    const ref = firebase.storage().ref().child(`${Adhaar_number}/${name}`);
-    const s = await ref.put(blob);
-    blob.close();
-    return uri;
+    // const blob = await new Promise((resolve, reject) => {
+    //   const xhr = new XMLHttpRequest();
+    //   xhr.onload = function () {
+    //     resolve(xhr.response);
+    //   };
+    //   xhr.onerror = function (e) {
+    //     console.log(e);
+    //     reject(new TypeError('Network request failed'));
+    //   };
+    //   xhr.responseType = 'blob';
+    //   xhr.open('GET', uri, true);
+    //   xhr.send(null);
+    // });
+    // const ref = firebase.storage().ref().child(`${Adhaar_number}/${name}`);
+    // const s = await ref.put(blob);
+    // blob.close();
+    // return uri;
   };
 
   const imageToTensorf = (rawImageData) => {
@@ -206,7 +202,6 @@ const UploadImages = ({ route, navigation }) => {
     const imgBuffer = tf.util.encodeString(imgB64, 'base64').buffer;
     const raw = new Uint8Array(imgBuffer);
     const imageTensor = imageToTensorf(raw);
-    console.log(imageTensor);
     let result = await model.predict(imageTensor).data();
     return result;
   };
@@ -277,6 +272,18 @@ const UploadImages = ({ route, navigation }) => {
     }
     setprediciton(class_);
     setloading(false);
+    const base64_img1 = await FileSystem.readAsStringAsync(image_1, {
+      encoding: 'base64',
+    });
+    const base64_img2 = await FileSystem.readAsStringAsync(image_2, {
+      encoding: 'base64',
+    });
+    const base64_img3 = await FileSystem.readAsStringAsync(image_3, {
+      encoding: 'base64',
+    });
+    const base64_img4 = await FileSystem.readAsStringAsync(image_4, {
+      encoding: 'base64',
+    });
     const data = await {
       Firstname: Firstname,
       Lastname: Lastname,
@@ -289,14 +296,16 @@ const UploadImages = ({ route, navigation }) => {
       State: State,
       Postal_code: Postal_code,
       Stage: class_,
+      photo: [base64_img1, base64_img2, base64_img3, base64_img4],
     };
-    console.log(data);
     navigation.navigate('Final Screen', data);
   };
 
   return (
     <View style={styles.UploadEntry_view}>
-      <Text style={styles.text}>Select 4 images of your house from different angles</Text>
+      <Text style={styles.text}>
+        Select 4 images of your house from different angles
+      </Text>
 
       {loading ? (
         <Overlay isVisible={loading}>
@@ -378,7 +387,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
     color: 'black',
-    textAlign : 'center',
-    marginBottom:16
+    textAlign: 'center',
+    marginBottom: 16,
   },
 });
