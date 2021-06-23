@@ -5,7 +5,7 @@ import './Map.css';
 function DashboardMap() {
   return (
     <div className="map">
-      <Map defaultCenter={[21.1458, 79.0882]} defaultZoom={4.8}>
+      <Map defaultCenter={[21.1458, 79.0882]} defaultZoom={4.5}>
         <ZoomControl />
         <Marker width={40} anchor={[28.5934, 77.2223]} />
       </Map>

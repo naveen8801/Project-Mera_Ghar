@@ -1,0 +1,62 @@
+.navabr {
+    width: 100%;
+    height: 60px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.heading-title {
+    margin-left: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #0A1931;
+}
+
+.logo-gov {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+}
+
+.flexbox-item1 {
+    width: 30%;
+    height: 100%;
+    margin-left: 1.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flexbox-item2 {
+    width: 70%;
+    height: 100%;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.sub-flexbox-item {
+    margin-right: 1.5rem;
+}
+
+.nav-links {
+    margin: 0;
+    font-weight: normal;
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    color: #F25287;
+    font-size: 18px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.nav-links:hover {
+    cursor: pointer;
+    text-decoration: underline #290149;
+}
