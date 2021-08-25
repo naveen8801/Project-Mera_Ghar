@@ -2,20 +2,16 @@ import './App.css';
 import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Navbar from './components/Navbar/Navbar';
+import AdminLoginPage from './pages/AdminLoginRegister/AdminLoginPage';
 
 function App() {
   return (
     <>
-     <Navbar />
+      <Navbar />
       <Switch>
-        <Route exact path="/profile">
-          
-        </Route>
-        <Route exact path="/user">
-          
-        </Route>
+        <Route exact path="/profile"></Route>
         <Route exact path="/admin">
-          
+          <AdminLoginPage />
         </Route>
         <Route exact path="/">
           <Dashboard />
