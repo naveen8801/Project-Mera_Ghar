@@ -44,14 +44,17 @@ const FinalScreen = ({ route, navigation }) => {
       photos: photo,
     };
     try {
-      fetch('http://ecdbe7d7baaa.ngrok.io/submit-request', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
+      fetch(
+        'https://cedd-2401-4900-421c-fe19-18fb-4852-2d8-48a3.ngrok.io/submit-request',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      )
         .then((response) => response.json())
         .then((json) => {
           if (json.status === 200) {

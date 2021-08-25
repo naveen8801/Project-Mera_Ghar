@@ -24,10 +24,6 @@ const Home = ({ navigation }) => {
             ButtonText="New Entry"
             onpress={() => navigation.navigate('New Entry')}
           />
-          <AppButton
-            ButtonText="Update Entry"
-            onpress={() => navigation.navigate('Update Entry')}
-          />
         </View>
       </View>
     </ImageBackground>

@@ -51,7 +51,7 @@ const UploadImages = ({ route, navigation }) => {
   }, []);
 
   const loadmyModel = async () => {
-    setloading(true);
+    // setloading(true);
     console.log('**** Loading Image classfication model !');
     await tf.ready();
     const modleljson = await require('./../../../assets/model.json');

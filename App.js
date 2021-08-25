@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Pages/Home/Home';
 import NewEntry from './components/Pages/NewEntry/NewEntry';
-import UpdateEntry from './components/Pages/UpdateEntry/UpdateEntry';
 import Step2Screen from './components/Pages/step2Screen/Step2Screen';
 import step3Screen from './components/Pages/step3Screen/step3Screen';
 import UploadImages from './components/Pages/UploadImages/UploadImages';
@@ -39,20 +38,6 @@ export default function App() {
         <Stack.Screen
           name="New Entry"
           component={NewEntry}
-          options={{
-            headerStyle: {
-              backgroundColor: '#f0f3f7',
-            },
-            headerTintColor: '#1176f2',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              color: 'black',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Update Entry"
-          component={UpdateEntry}
           options={{
             headerStyle: {
               backgroundColor: '#f0f3f7',
