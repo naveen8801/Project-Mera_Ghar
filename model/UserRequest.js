@@ -12,10 +12,12 @@ const userrequest = new mongoose.Schema({
   adhaar_no: {
     type: String,
     required: true,
+    unique: true,
   },
   phone_number: {
     type: String,
     required: true,
+    unique: true,
   },
   long: {
     type: String,
@@ -53,4 +55,8 @@ const userrequest = new mongoose.Schema({
 });
 
 const UserRequestModel = mongoose.model('UserRequests', userrequest);
+UserRequestModel.watch().on('change', (data) => {
+  console.log("Requests model is changed")
+  console.log(data)
+})
 module.exports = UserRequestModel;

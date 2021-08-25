@@ -4,13 +4,12 @@ const {
   PostUserRequest,
   AdminLogin,
   AdminRegister,
-  UserLogin,
+  PublicData,
 } = require('./../controllers/index');
 
 Router.post('/submit-request', PostUserRequest);
 Router.post('/admin-login', AdminLogin);
 Router.post('/admin-register', AdminRegister);
-Router.post('/user-login', UserLogin);
-
+Router.get('/public-data', PublicData);
 
 module.exports = Router;
