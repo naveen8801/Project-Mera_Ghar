@@ -1,19 +1,19 @@
-import axios from "axios";
-const development = true;
+import axios from 'axios';
 
-const url = 'http://cedd-2401-4900-421c-fe19-18fb-4852-2d8-48a3.ngrok.io';
+const url = 'http://localhost:5000';
 
 export const server = axios.create({
   baseURL: url,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 
-export const adminRegister = (data) => server.post(`${url}/admin-register`, data);
-export const adminLogin = (data) =>
-  server.post(`${url}/admin-login`, data);
+export const adminRegister = (data) =>
+  server.post(`${url}/admin-register`, data);
+export const adminLogin = (data) => server.post(`${url}/admin-login`, data);
+export const DashboardData = () => server.get(`${url}/public-data`);
 
 /*
 Router.post('/submit-request', PostUserRequest);
