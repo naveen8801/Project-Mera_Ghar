@@ -133,7 +133,11 @@ exports.PublicData = async (req, res) => {
     let stages = [];
     let date = [];
     let state = [];
+    let accepted = 0;
     Requests.map((item) => {
+      if(item.accepted){
+          accepted++;
+      }
       RequestLocationData.push({
         name: item.firstname + ' ' + item.lastname,
         pincode: item.pincode,
@@ -164,9 +168,11 @@ exports.PublicData = async (req, res) => {
     res.status(200).json({
       totalrequest: Requests.length,
       totaladmin: admin.length,
+      acceptedreq : accepted,
       datedata: dateAnalysis,
       statedata: stateAnalysis,
       stagedata: stageAnalysis,
+      mapdata : RequestLocationData,
     });
   } catch (err) {
     console.log(err);
