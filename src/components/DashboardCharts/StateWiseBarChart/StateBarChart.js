@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import './../Charts.css';
+import { useSelector } from 'react-redux';
 
 function StateBarChart() {
+  const data = useSelector((state) => state.DashboardData.statedata);
   const [options, setoptions] = useState({
     chart: {
       id: 'basic-bar',
@@ -25,13 +27,25 @@ function StateBarChart() {
     },
   });
   const [chartdata, setchartdata] = useState([
-    { name: 'UP', data: [3] },
-    { name: 'Delhi', data: [2] },
-    { name: 'Haryana', data: [10] },
-    { name: 'Punjab', data: [5] },
-    { name: 'Odissa', data: [6] },
-    { name: 'Maharastra', data: [9] },
   ]);
+
+  useEffect(() => {
+    if (Object.keys(data).length !== 0) {
+      const keys = Object.keys(data);
+      const values = [];
+      keys.map((i) => values.push(data[i]));
+      const newdata = [];
+      for (let i = 0; i < keys.length; i++) {
+        const obj = {};
+        obj['name'] = keys[i];
+        obj['data'] = [values[i]];
+        newdata.push(obj);
+      }
+      console.log(data);
+      setchartdata(newdata);
+    }
+  }, [data]);
+
   return (
     <div className="state-bar-chart">
       <Chart options={options} series={chartdata} type="bar" height="100%" />
