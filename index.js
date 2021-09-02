@@ -6,6 +6,7 @@ const colors = require('colors');
 const routes = require('./routes/routes');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
+const socketIO = require('socket.io');
 
 dotenv.config({ path: 'config/config.env' });
 
@@ -19,6 +20,29 @@ app.use(morgan('tiny'));
 app.use(express.json({ extended: false }));
 app.use(cookieParser());
 app.use(routes);
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+
+  // Request methods you wish to allow
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  );
+
+  // Request headers you wish to allow
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With,content-type'
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
 
 const PORT = process.env.PORT || 5000;
 
@@ -33,4 +57,8 @@ connectDB().then(() => {
     PORT,
     console.log(`Server running on port ${PORT}`.green.italic.bold)
   );
+
+  io = socketIO(server);
+
+  module.exports.io = io;
 });

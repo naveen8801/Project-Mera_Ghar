@@ -5,6 +5,7 @@ const sms = require('fast-two-sms');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const maxage = 1 * 24 * 60 * 60;
 const createwebToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_ACCESS_TOKEN, {
@@ -135,8 +136,8 @@ exports.PublicData = async (req, res) => {
     let state = [];
     let accepted = 0;
     Requests.map((item) => {
-      if(item.accepted){
-          accepted++;
+      if (item.accepted) {
+        accepted++;
       }
       RequestLocationData.push({
         name: item.firstname + ' ' + item.lastname,
@@ -168,11 +169,11 @@ exports.PublicData = async (req, res) => {
     res.status(200).json({
       totalrequest: Requests.length,
       totaladmin: admin.length,
-      acceptedreq : accepted,
+      acceptedreq: accepted,
       datedata: dateAnalysis,
       statedata: stateAnalysis,
       stagedata: stageAnalysis,
-      mapdata : RequestLocationData,
+      mapdata: RequestLocationData,
     });
   } catch (err) {
     console.log(err);
