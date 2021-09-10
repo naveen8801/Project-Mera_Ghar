@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import './../Charts.css';
 import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
 function DatesLineChart() {
   const data = useSelector((state) => state.DashboardData.datedata);
@@ -28,6 +29,7 @@ function DatesLineChart() {
       },
     },
     grid: {
+      show: false,
       row: {
         colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
         opacity: 0.5,
@@ -72,6 +74,7 @@ function DatesLineChart() {
           },
         },
         grid: {
+          show: false,
           row: {
             colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
             opacity: 0.5,
@@ -95,9 +98,9 @@ function DatesLineChart() {
   }, [data]);
 
   return (
-    <div className="dates-chart-container">
+    <Card className="dates-chart-container">
       <Chart options={options} series={chartdata} type="area" height="100%" />
-    </div>
+    </Card>
   );
 }
 

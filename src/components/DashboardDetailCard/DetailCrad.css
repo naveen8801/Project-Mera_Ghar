@@ -2,14 +2,12 @@
   width: 30%;
   height: 60vh;
   margin: 1rem;
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
-    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 12px;
 }
 
 .heading {
@@ -17,9 +15,10 @@
   color: #4a148c;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 800;
+  font-weight: 600;
   margin-top: 0.5rem;
   margin-bottom: 0.3rem;
+  font-size: 25px;
 }
 
 .value {
@@ -27,6 +26,7 @@
   color: #f50057;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
+  font-size: 22px;
 }

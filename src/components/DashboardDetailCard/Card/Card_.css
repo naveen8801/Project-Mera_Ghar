@@ -1,0 +1,32 @@
+.card-div {
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+  height: 15vh;
+  margin: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  padding: 0.5rem;
+}
+
+.title-card {
+  color: #4a148c;
+  text-align: center;
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.value-card {
+  color: #f50057;
+  text-align: center;
+  margin: 0;
+  margin-top: 0.4rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}

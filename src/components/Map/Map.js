@@ -4,6 +4,7 @@ import './Map.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { updatedashboardContentCard } from './../../actions';
+import { Card } from 'react-bootstrap';
 
 function DashboardMap() {
   const dispatch = useDispatch();
@@ -21,20 +22,22 @@ function DashboardMap() {
   };
 
   return (
-    <div className="map">
-      <Map defaultCenter={[21.1458, 79.0882]} defaultZoom={4.5}>
-        <ZoomControl />
-        {data.map((i, index) => (
-          <Marker
-            color="#22577A"
-            key={index}
-            width={20}
-            anchor={[parseFloat(i.lat), parseFloat(i.long)]}
-            onClick={() => setDetails(index)}
-          />
-        ))}
-      </Map>
-    </div>
+    <Card className="map">
+      <div className="sub-map-div">
+        <Map defaultCenter={[21.1458, 79.0882]} defaultZoom={4.5}>
+          <ZoomControl />
+          {data.map((i, index) => (
+            <Marker
+              color="#22577A"
+              key={index}
+              width={20}
+              anchor={[parseFloat(i.lat), parseFloat(i.long)]}
+              onClick={() => setDetails(index)}
+            />
+          ))}
+        </Map>
+      </div>
+    </Card>
   );
 }
 

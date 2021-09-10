@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import './../Charts.css';
 import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
 function StateBarChart() {
   const data = useSelector((state) => state.DashboardData.statedata);
@@ -15,6 +16,9 @@ function StateBarChart() {
     stroke: {
       curve: 'smooth',
     },
+    grid: {
+      show: false,
+    },
     dataLabels: {
       enabled: true,
     },
@@ -26,8 +30,7 @@ function StateBarChart() {
       },
     },
   });
-  const [chartdata, setchartdata] = useState([
-  ]);
+  const [chartdata, setchartdata] = useState([]);
 
   useEffect(() => {
     if (Object.keys(data).length !== 0) {
@@ -47,9 +50,9 @@ function StateBarChart() {
   }, [data]);
 
   return (
-    <div className="state-bar-chart">
+    <Card className="state-bar-chart">
       <Chart options={options} series={chartdata} type="bar" height="100%" />
-    </div>
+    </Card>
   );
 }
 
