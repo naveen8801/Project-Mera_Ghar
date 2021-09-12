@@ -15,7 +15,16 @@ import { useSelector } from 'react-redux';
 function Dashboard() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.DashboardData);
+  const [DATA, setDATA] = useState({});
   const [seconds, setseconds] = useState(60);
+
+  useEffect(() => {
+    getData();
+    const interval_new = setInterval(() => {
+      getData();
+    }, 1000 * 55);
+    return () => clearInterval(interval_new);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,14 +39,15 @@ function Dashboard() {
 
   const getData = async () => {
     try {
+      console.log('UPDATING DATA .... ');
       const data = await DashboardData();
+      console.log(data);
       dispatch(updatedashboarddata(data.data));
+      setseconds((p) => (p = 60));
     } catch (err) {
       console.log(err);
     }
   };
-
-  console.log(data);
 
   return (
     <div className="bg-light dashboard">

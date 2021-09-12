@@ -3,8 +3,13 @@ import './AdminLoginPage.css';
 import { adminRegister, adminLogin } from './../../api/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Card } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { loginAdmin } from './../../actions/index';
 
 function AdminLoginPage() {
+  const dispatch = useDispatch();
   const [fullname, setfullname] = useState('');
   const [phonenumber, setphone] = useState('');
   const [password, setpassword] = useState('');
@@ -82,6 +87,11 @@ function AdminLoginPage() {
         toast.success('Admin logined Succesfully');
         setadminid('');
         setadminpassword('');
+        const data = {
+          login: true,
+          name: res.data.name,
+        };
+        dispatch(loginAdmin(data));
       }
     } catch (error) {
       console.log(error.response);
@@ -90,14 +100,12 @@ function AdminLoginPage() {
         toast.error(`${error.response.data.msg}`);
       }
     }
-
-    console.log(body);
   };
 
   return (
-    <div className="admin-login-page">
+    <div className="bg-light admin-login-page">
       <ToastContainer position="bottom-left" />
-      <div className="flexbox-item">
+      <Card className="flexbox-item">
         <h2>Register</h2>
         <div className="form">
           <input
@@ -122,17 +130,19 @@ function AdminLoginPage() {
             Sign Up
           </button>
         </div>
-      </div>
-      <div className="flexbox-item">
+      </Card>
+      <Card className="flexbox-item">
         <h2>Login</h2>
         <div className="form">
           <input
+            className="inp"
             value={adminId}
             type="text"
             placeholder="Admin ID"
             onChange={(e) => setadminid(e.target.value)}
           />
           <input
+            className="inp"
             value={adminpassword}
             type="password"
             placeholder="Password"
@@ -142,7 +152,7 @@ function AdminLoginPage() {
             Login
           </button>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -19,6 +19,9 @@ function StageBarChar() {
     grid: {
       show: false,
     },
+    legend: {
+      show: false,
+    },
     dataLabels: {
       enabled: true,
     },

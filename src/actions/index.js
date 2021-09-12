@@ -11,3 +11,10 @@ export const updatedashboardContentCard = (data) => {
     payload: data,
   };
 };
+
+export const loginAdmin = (data) => {
+  return {
+    type: 'LOGIN-ADMIN',
+    payload: data,
+  };
+};

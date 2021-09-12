@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import './../Charts.css';
 import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
+import moment from 'moment';
 
 function DatesLineChart() {
   const data = useSelector((state) => state.DashboardData.datedata);
@@ -19,7 +20,7 @@ function DatesLineChart() {
       enabled: false,
     },
     stroke: {
-      curve: 'straight',
+      curve: 'smooth',
     },
     title: {
       text: 'Requests Per Date',
@@ -37,6 +38,11 @@ function DatesLineChart() {
     },
     xaxis: {
       categories: [],
+      labels: {
+        style: {
+          fontSize: '9px',
+        },
+      },
     },
   });
   const [chartdata, setdata] = useState([
@@ -64,7 +70,7 @@ function DatesLineChart() {
           enabled: false,
         },
         stroke: {
-          curve: 'straight',
+          curve: 'smooth',
         },
         title: {
           text: 'Requests Per Date',
@@ -81,7 +87,12 @@ function DatesLineChart() {
           },
         },
         xaxis: {
-          categories: categories,
+          categories: keys,
+          labels: {
+            style: {
+              fontSize: '9px',
+            },
+          },
         },
       };
 
